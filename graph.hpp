@@ -9,6 +9,10 @@ struct Edge
 		v1=0;
 		v2=0;
 	}
+	Edge(int v1Arg, int v2Arg){
+		v1=v1Arg;
+		v2=v2Arg;
+	}
 };
 
 
@@ -18,33 +22,28 @@ class Graph
 	size_t vertexCounter;
 
 public:
-	Graph(size_t n)
-	{
-		vertexCounter=n;
-		for (int i=0;i<n;i++)
-		{
-			std::list<int> emptyList;
-			graph.push_back(emptyList);
+	Graph(size_t n){
+	vertexCounter=n;
+	for (int i=0;i<n;i++){
+		std::list<int> emptyList;
+		graph.push_back(emptyList);
 		}
 	}
 
-	size_t noOfVertexes()
-	{
+	size_t size(){
 		return vertexCounter;
 	}
 
-	void addEdge(Edge e)
+	void add(Edge e)
 	{
-		while (graph.size()<=e.v1)
-			{
-				std::list<int> emptyList;
-				graph.push_back(emptyList);
-			}
-		while (graph.size()<=e.v2)
-			{
-				std::list<int> emptyList;
-				graph.push_back(emptyList);
-			}
+		while (graph.size()<=e.v1){
+			std::list<int> emptyList;
+			graph.push_back(emptyList);
+		}
+		while (graph.size()<=e.v2){
+			std::list<int> emptyList;
+			graph.push_back(emptyList);
+		}
 		graph[e.v1].push_back(e.v2);
 		graph[e.v2].push_back(e.v1);
 	}
@@ -52,7 +51,7 @@ public:
 	int isCoherent(int startingVertex)
 	{
 		if (startingVertex>=(int)graph.size())
-			throw std::out_of_range ("Graph doesnt have that vertex");
+			throw std::out_of_range ("Graph doesn't have that vertex");
 		std::stack <int> stck;
 		int visited[vertexCounter];
 		for (size_t i=0;i<vertexCounter;i++)
@@ -77,7 +76,7 @@ public:
 		int isCoherentWithout2Vertexes(int startingVertex, int v1, int v2)
 	{
 		if (startingVertex>=(int)graph.size())
-			throw std::out_of_range ("Graph doesnt have that vertex");
+			throw std::out_of_range ("Graph doesn't have that vertex");
 		std::stack <int> stck;
 		int visited[vertexCounter];
 		for (size_t i=0;i<vertexCounter;i++)
